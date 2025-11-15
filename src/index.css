@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap');
+
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply  text-foreground ;
+    @apply font-noto-mono;
+  }
+}
+
+.btn-glow {
+  position: relative;
+  display: inline-flex;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 2px;
+}
+
+/* Rotating glow with blur effect */
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: conic-gradient(
+    rgba(0, 0, 0, 0),
+    #C8FFC8,
+    rgba(0, 0, 0, 0) 25%
+  );
+  border-radius: 12px;
+  z-index: -2;
+  animation: glow 5s linear infinite;
+  opacity: 1.0;
+  pointer-events: none;
+  filter: blur(8px); /* Added blur effect to the glow */
+}
+
+/* Mask inside glow border */
+.btn-glow::after {
+  content: '';
+  position: absolute;
+  background: #1a1a1a;
+  border-radius: 8px;
+  z-index: -1;
+  backdrop-filter: blur(4px); /* Added subtle blur to the mask */
+}
+
+/* Actual button - made smaller */
+.glow-button {
+  position: relative;
+  z-index: 0;
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  font-size: 0.875rem; /* Smaller text */
+  padding: 0.6rem 1.1rem; /* Smaller padding */
+}
+
+/* Hover effects */
+.btn-glow:hover::before {
+  animation-duration: 1.5s;
+  filter: blur(10px); /* More blur on hover */
+  opacity: 0.9;
+}
+
+.glow-button:hover {
+  box-shadow: 
+    0 0 15px rgba(200, 255, 200, 0.4),
+    0 0 30px rgba(200, 255, 200, 0.2);
+  border-color: rgba(200, 255, 200, 0.6);
+  background: rgba(200, 255, 200, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.glow-button:active {
+  transform: translateY(0);
+}
+
+@keyframes glow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin-left: 2px;
+  animation: blinkingCursor 0.3s steps(1) infinite;
+}
+
+@keyframes blinkingCursor {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.glass-emoji {
+  background: linear-gradient(135deg, #60FF60 0%, #00CFFF 30%, #000000 50%, #00CFFF 70%, #60FF60 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(96, 255, 96, 0.3);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scroll Reveal Text Animation - Clean Color Change */
+.scroll-reveal-text {
+  position: relative;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.6);
+  text-stroke: 1px rgba(255, 255, 255, 0.6);
+}
+
+.scroll-reveal-text .actual-text {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-reveal-text .hover-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  z-index: 2;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 3s ease-out;
+}
+
+.scroll-reveal-text.animate .hover-text {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Emoji Capsule Animation */
+.emoji-capsule {
+  opacity: 0;
+  transform: scale(0.8) translateY(10px);
+  transition: all 0.6s ease-out;
+}
+
+.emoji-capsule.animate {
+  opacity: 1;
+  transform: scale(1) translateY(0px);
+}
+
+/* Typewriter cursor animation */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  background-color: white;
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Logo animation inspired by Uiverse */
+.logo-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  height: auto;
+}
+
+.logo-button .span-mother,
+.logo-button .span-mother2 {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.logo-button .span-mother span,
+.logo-button .span-mother2 span {
+  color: #60FF60;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.logo-button .span-mother2 {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.logo-button .span-mother2 span {
+  transform: translateY(-1.2em);
+  transition: transform 0.4s;
+}
+
+.logo-button .span-mother span {
+  transition: transform 0.4s;
+}
+
+/* Hover Animations */
+.logo-button:hover .span-mother span {
+  transform: translateY(1.2em);
+}
+
+.logo-button:hover .span-mother2 span {
+  transform: translateY(0);
+}
+
+/* Staggered transitions */
+.logo-button .span-mother span:nth-child(1),
+.logo-button .span-mother2 span:nth-child(1) { transition-delay: 0s; }
+.logo-button .span-mother span:nth-child(2),
+.logo-button .span-mother2 span:nth-child(2) { transition-delay: 0.05s; }
+.logo-button .span-mother span:nth-child(3),
+.logo-button .span-mother2 span:nth-child(3) { transition-delay: 0.1s; }
+.logo-button .span-mother span:nth-child(4),
+.logo-button .span-mother2 span:nth-child(4) { transition-delay: 0.15s; }
+.logo-button .span-mother span:nth-child(5),
+.logo-button .span-mother2 span:nth-child(5) { transition-delay: 0.2s; }
+.logo-button .span-mother span:nth-child(6),
+.logo-button .span-mother2 span:nth-child(6) { transition-delay: 0.25s; }
+
+@keyframes glitch {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: translate(-1px, 1px);
+    opacity: 0.8;
+  }
+  40% {
+    transform: translate(1px, -1px);
+    opacity: 1;
+  }
+  60% {
+    transform: translate(-1px, -1px);
+    opacity: 0.9;
+  }
+  80% {
+    transform: translate(1px, 1px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.15s infinite;
+}
+
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,22 @@
+.animated-text {
+  display: inline-block;
+  background: linear-gradient(270deg, #60ff60, #00ffa6, #60ff60, #00ffa6);
+  background-size: 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: textScroll 8s linear infinite;
+}
+
+@keyframes textScroll {
+  0% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 400%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
